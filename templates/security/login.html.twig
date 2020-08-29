@@ -1,0 +1,101 @@
+{% extends 'security/base.html.twig' %}
+
+{% block head %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="col text-center"> <h1 id="header">Welcome</h1> </div>
+
+
+        </nav>
+
+        <style>
+            #form{
+                padding-top: 30px;
+                align-items: center;
+                justify-content: space-around;
+                display: flex;
+                float: none;
+            }
+
+            #header{
+                padding: 20px;
+            }
+
+
+        </style>
+
+        <title>{% block title %}Sign In{% endblock %}</title>
+
+    </head>
+{% endblock %}
+
+{% block body %}
+
+
+    <div id="form">
+        <form method="post">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="mb-3">
+                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            {% endif %}
+
+
+
+            <label for="inputUsername">Username</label>
+            <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required autofocus>
+            <label for="inputPassword">Password</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" required>
+
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}"
+            >
+
+            <button type="submit" class="btn btn-light"> Sign In </button>
+
+
+            <a href="{{ path('app_new_user') }}" class="btn btn-light">
+                Create New Account
+            </a>
+            <div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button></div>
+
+
+
+
+
+    </div>
+
+
+
+
+    {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+
+
+    </form>
+
+    </div>
+
+
+{% endblock %}
