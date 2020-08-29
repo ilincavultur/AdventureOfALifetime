@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -24,6 +25,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
+     * @param UserInterface $user
+     * @param string $newEncodedPassword
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
     {
@@ -35,6 +40,28 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->persist($user);
         $this->_em->flush();
     }
+
+    /**
+     * @param null $search
+     * @return QueryBuilder
+     */
+    public function findUsers($search = null)
+    {
+        $qb = $this->createQueryBuilder('p');
+
+
+        if (null !== $search){
+            $qb->where('p.username like :search')
+                ->orWhere('p.email like :search')
+                ->orWhere('p.roles like :search')
+                ->setParameter('search','%'.$search.'%');
+        }
+
+        $qb->orderBy('p.createdAt','DESC');
+
+        return $qb;
+    }
+
 
     // /**
     //  * @return User[] Returns an array of User objects
