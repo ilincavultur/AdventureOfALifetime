@@ -5,12 +5,16 @@ namespace App\Form;
 
 
 use App\Entity\Adventure;
+use DateTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormTypeInterface;
 
 class AdventureType extends AbstractType
 {
@@ -23,7 +27,7 @@ class AdventureType extends AbstractType
     {
         $builder
             ->add('Location', TextType::class)
-            ->add('Date', \DateTime::class)
+            ->add('Date', DateType::class)
             ->add('Type', ChoiceType::class, [
                 'choices' => [
                     'Hiking' => Adventure::TYPE_HIKING ,

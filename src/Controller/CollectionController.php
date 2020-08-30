@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -31,7 +32,7 @@ class CollectionController extends AbstractController
      */
     public function addAdventure(EntityManagerInterface $em, Request $request)
     {
-        $form = $this->createForm(AdventureType::class);
+        $form = $this->createForm( AdventureType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
