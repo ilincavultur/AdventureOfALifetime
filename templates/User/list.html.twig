@@ -40,7 +40,8 @@
                             {{ app.user.username }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href="{{ path('app_user_edit', {"id":app.user.id}) }}">Settings</a>
+
                             <a class="dropdown-item" href="{{ path('app_logout')}}">Log Out</a>
                         </div>
                     </li>
@@ -84,7 +85,6 @@
             <th>Username</th>
             <th>Email</th>
             <th>Role</th>
-            <th>Created At</th>
             <th>Actions</th>
         </tr>
 
@@ -102,7 +102,6 @@
                         </li>
                     {% endfor %}
                 </td>
-                <td> {{ user.createdAt|date }}</td>
                 <td>
 
                     <ul class="list-inline m-0">

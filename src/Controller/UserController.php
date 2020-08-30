@@ -4,7 +4,9 @@
 namespace App\Controller;
 
 
+use App\Entity\Adventure;
 use App\Entity\User;
+use App\Form\AdventureType;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
@@ -89,6 +91,7 @@ class UserController extends AbstractController
      * @param User $user
      * @return RedirectResponse
      * @Route("/delete/{id}", name="app_user_delete")
+     *
      */
     public function userDelete(User $user)
     {
@@ -99,6 +102,36 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user_list');
 
+    }
+
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return RedirectResponse|Response
+     * @Route("/edit/{id}", name="app_user_edit")
+     */
+    public function update(Request $request, User $user)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()){
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_user_list');
+        }
+
+        return $this->render(
+            'User/settings.html.twig',
+            [
+                'user_form' => $form->createView()
+            ]
+        );
     }
 
 
