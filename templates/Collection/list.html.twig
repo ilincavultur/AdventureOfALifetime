@@ -30,7 +30,7 @@
                         <a class="nav-link" href="{{ path('app_homepage') }}">Home</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ path('app_collection') }}">Collection</a>
+                        <a class="nav-link" href="{{ path('app_collection_ski') }}">Collection</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_user_list') }}">Users</a>
@@ -51,7 +51,7 @@
 
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
-            <a href="{{ path('app_collection') }}" class="btn btn-light">
+            <a href="{{ path('app_collection_ski') }}" class="btn btn-light">
                 Collection
             </a>
 
@@ -73,7 +73,7 @@
                 <a class="nav-link" href="#">Hiking</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Skiing</a>
+                <a class="nav-link active" href="#">Skiing</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Surfing</a>
@@ -92,7 +92,7 @@
             </li>
         </ul>
 
-        <title>{% block title %}List{% endblock %}</title>
+        <title>{% block title %}Ski List{% endblock %}</title>
 
     </head>
 {% endblock %}

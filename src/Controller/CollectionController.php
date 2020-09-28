@@ -40,7 +40,7 @@ class CollectionController extends AbstractController
             $em->persist($form->getData());
 
             $em->flush();
-            return $this->redirect($this->generateUrl('app_collection'));
+            return $this->redirect($this->generateUrl('app_collection_ski'));
         }
         return $this->render(
             'Collection/addAdventure.html.twig',
@@ -54,12 +54,12 @@ class CollectionController extends AbstractController
     /**
      * @param Request $request
      * @return Response
-     * @Route("/list", name="app_collection")
+     * @Route("/list", name="app_collection_ski")
      */
     public function listAction(Request $request)
     {
         $productRepository = $this->getDoctrine()->getRepository(Adventure::class);
-        $qb = $productRepository->findAdventures($request->get('search'));
+        $qb = $productRepository->findSkiAdventures($request->get('search'));
 
         $page = $request->get('page');
         $pager = new Pagerfanta(new DoctrineORMAdapter($qb));

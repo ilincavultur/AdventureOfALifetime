@@ -20,19 +20,23 @@ class AdventureRepository extends ServiceEntityRepository
         parent::__construct($registry, Adventure::class);
     }
 
+
+
+
+
     /**
      * @param null $search
      * @return QueryBuilder
      */
-    public function findAdventures($search = null)
+    public function findSkiAdventures($search = null)
     {
         $qb = $this->createQueryBuilder('p');
 
 
         if (null !== $search){
-            $qb->where('p.Location like :search')
-                ->orWhere('p.Date like :search')
-                ->orWhere('p.Type like :search')
+            $qb->where('p.Type like :search')
+                //->orWhere('p.Date like :search')
+                //->orWhere('p.Type like :Skiing')
                 ->setParameter('search','%'.$search.'%');
         }
 
